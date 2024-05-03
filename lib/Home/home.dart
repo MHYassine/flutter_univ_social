@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import '../Drawer/MyDrawer.dart';
 import '../Profile/profileWithid.dart';
 import '../firebase/firebase_tools.dart';
+import '../firebase/tools.dart';
+
 import 'postItem.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,22 +23,23 @@ class _HomePageState extends State<HomePage> {
   Map<String, List<Map<String, dynamic>>> postDataMap = {};
   List<Map<String, dynamic>> postDataForUid = [];
   final appState = ApplicationState();
+  final tool = Tools();
 
   Future<void> _getPostData(String uid) async {
     final appState = Provider.of<ApplicationState>(context, listen: false);
     await appState.init();
     if (appState.loggedIn && appState.isStudent) {
       final List<Map<String, dynamic>> postDataForUid =
-          await appState.getPostData(uid);
+          await tool.getPostData(uid);
       postDataMap[uid] = postDataForUid;
     } else if (appState.loggedIn && !appState.isStudent) {
       final List<Map<String, dynamic>> postDataForCurrentUser =
-          await appState.getPostData(FirebaseAuth.instance.currentUser!.uid);
+          await tool.getPostData(FirebaseAuth.instance.currentUser!.uid);
       postDataMap[FirebaseAuth.instance.currentUser!.uid] =
           postDataForCurrentUser;
     } else {
       final List<Map<String, dynamic>> postDataForUid =
-          await appState.getPostData(uid);
+          await tool.getPostData(uid);
       postDataMap[uid] = postDataForUid;
     }
   }
@@ -61,7 +64,7 @@ class _HomePageState extends State<HomePage> {
     _init();
   }
 
-  void _init() async {
+  Future<void> _init() async {
     if (appState.loggedIn) {
       await _getUserFollowing();
       if (followingUIDs.isNotEmpty) {

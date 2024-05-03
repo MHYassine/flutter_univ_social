@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../firebase/firebase_tools.dart';
 import '../firebase/tools.dart';
 
 class TeacherPostForm extends StatefulWidget {
@@ -105,8 +104,7 @@ class _TeacherPostFormState extends State<TeacherPostForm> {
               'PosterFullName':
                   '${thisuserdata['firstName']} ${thisuserdata['lastName']}',
             };
-            final appState = ApplicationState();
-            appState.addPost(postData, FirebaseAuth.instance.currentUser!.uid);
+            tool.addPost(postData, FirebaseAuth.instance.currentUser!.uid);
             //dispose();
             Navigator.pop(context);
           },

@@ -85,11 +85,11 @@ class _Profile2PageState extends State<Profile2Page> {
                             onPressed: () {
                               if (appState.loggedIn) {
                                 if (isFollowing) {
-                                  appState.removeFollowing(widget.uid);
+                                  tool.removeFollowing(widget.uid);
                                   isFollowing = false;
                                   setState(() {});
                                 } else {
-                                  appState.addFollowing(widget.uid);
+                                  tool.addFollowing(widget.uid);
                                   isFollowing = true;
                                   setState(() {});
                                 }
