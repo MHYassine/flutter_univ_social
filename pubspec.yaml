@@ -1,5 +1,5 @@
-name: gtk_flutter
-description: "Get to know Firebase with Flutter"
+name: ISI_social
+description: "ISI social"
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -71,6 +71,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/codelab.png
+    - assets/icon.jpg
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
