@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../Drawer/MyDrawer.dart';
 import '../Profile/profileWithid.dart';
-import '../firebase/firebase_tools.dart';
+import '../firebase/appstate.dart';
 import '../firebase/tools.dart';
 
 import 'postItem.dart';

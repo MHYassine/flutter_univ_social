@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../firebase/firebase_tools.dart';
+import '../firebase/appstate.dart';
 import '../firebase/tools.dart';
 
 class MessagingPage extends StatefulWidget {

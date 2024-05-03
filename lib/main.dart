@@ -10,7 +10,7 @@ import 'Auth/Sign_in.dart';
 import 'Drawer/Settings_page.dart';
 import 'Drawer/follwedteachers.dart';
 import 'Home/home.dart';
-import 'firebase/firebase_tools.dart';
+import 'firebase/appstate.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../firebase/firebase_tools.dart';
+import '../firebase/appstate.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -57,7 +57,7 @@ class ForgotPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    appBar: AppBar(
+      appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -84,8 +84,10 @@ class ForgotPasswordPage extends StatelessWidget {
                   child: const Text('Reset Password'),
                 ),
                 const SizedBox(width: 16.0),
-                  ElevatedButton(
-                  onPressed: () {context.pushReplacement('/');},
+                ElevatedButton(
+                  onPressed: () {
+                    context.pushReplacement('/');
+                  },
                   child: const Text('Login'),
                 ),
               ],
@@ -96,4 +98,3 @@ class ForgotPasswordPage extends StatelessWidget {
     );
   }
 }
-

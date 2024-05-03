@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../Drawer/MyDrawer.dart';
-import '../firebase/firebase_tools.dart';
+import '../firebase/appstate.dart';
 
 class SignInPage2 extends StatelessWidget {
   const SignInPage2({super.key});
@@ -206,7 +206,8 @@ class __FormContentState extends State<_FormContent> {
                         context: context,
                         builder: (context) => AlertDialog(
                           title: const Text('Sign In Success'),
-                          content: const Text('You have successfully signed in.'),
+                          content:
+                              const Text('You have successfully signed in.'),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -238,7 +239,6 @@ class __FormContentState extends State<_FormContent> {
                     }
                   }
                 },
-
               ),
             ),
             _gap(),

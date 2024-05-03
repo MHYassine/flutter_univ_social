@@ -1,9 +1,8 @@
-
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../firebase/firebase_tools.dart';
+import '../firebase/appstate.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -49,7 +48,6 @@ class _RegisterPageState extends State<RegisterPage> {
               controller: _emailController,
               decoration: const InputDecoration(labelText: 'Email'),
             ),
-
             TextField(
               controller: _passwordController,
               decoration: const InputDecoration(labelText: 'Password'),
@@ -60,61 +58,65 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: const InputDecoration(labelText: 'Confirm Password'),
               obscureText: true,
             ),
-              Row(
-                children: [
-                  Expanded(
+            Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: DropdownButtonFormField<String>(
+                    value: _selectedState.isNotEmpty ? _selectedState : null,
+                    items: states.map((stateItem) {
+                      return DropdownMenuItem<String>(
+                        value: stateItem,
+                        child: Text(stateItem),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        _selectedState = newValue!;
+                      });
+                    },
+                    decoration: const InputDecoration(labelText: 'State'),
+                  ),
+                ),
+                Visibility(
+                  visible: _selectedState == 'Student',
+                  child: Expanded(
                     flex: 1,
                     child: DropdownButtonFormField<String>(
-                      value: _selectedState.isNotEmpty ? _selectedState : null,
-                      items: states.map((stateItem) {
+                      value: _selectedClass.isNotEmpty ? _selectedClass : null,
+                      items: classes.map((classItem) {
                         return DropdownMenuItem<String>(
-                          value: stateItem,
-                          child: Text(stateItem),
+                          value: classItem,
+                          child: Text(classItem),
                         );
                       }).toList(),
                       onChanged: (newValue) {
                         setState(() {
-                          _selectedState = newValue!;
+                          _selectedClass = newValue!;
                         });
                       },
-                      decoration: const InputDecoration(labelText: 'State'),
+                      decoration: const InputDecoration(labelText: 'Class'),
                     ),
                   ),
-                  Visibility(
-                    visible: _selectedState == 'Student',
-                    child: Expanded(
-                      flex: 1,
-                      child: DropdownButtonFormField<String>(
-                        value: _selectedClass.isNotEmpty ? _selectedClass : null,
-                        items: classes.map((classItem) {
-                          return DropdownMenuItem<String>(
-                            value: classItem,
-                            child: Text(classItem),
-                          );
-                        }).toList(),
-                        onChanged: (newValue) {
-                          setState(() {
-                            _selectedClass = newValue!;
-                          });
-                        },
-                        decoration: const InputDecoration(labelText: 'Class'),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-
-
+                ),
+              ],
+            ),
             ElevatedButton(
               onPressed: () async {
                 // Validate form inputs
                 if (_validateForm()) {
-                  String uid = await ApplicationState().SigningUp(email: _emailController.text.toString().trim(), password: _passwordController.text.toString().trim());
+                  String uid = await ApplicationState().SigningUp(
+                      email: _emailController.text.toString().trim(),
+                      password: _passwordController.text.toString().trim());
                   // ignore: use_build_context_synchronously
                   context.pushReplacement('/');
-                  await ApplicationState().addUser(_firstNameController.text.toString() ,_lastNameController.text.toString() ,_emailController.text.toString() , _selectedClass.toString() ,_selectedState.toString(),uid  );
-                  
+                  await ApplicationState().addUser(
+                      _firstNameController.text.toString(),
+                      _lastNameController.text.toString(),
+                      _emailController.text.toString(),
+                      _selectedClass.toString(),
+                      _selectedState.toString(),
+                      uid);
                 }
               },
               child: const Text('Register'),
