@@ -246,18 +246,10 @@ class _TopPortionState extends State<_TopPortion> {
   Widget _buildProfileImage() {
     final imageUrl = widget.userData['imageUrl'];
     if (imageUrl != null) {
-      return Image.network(
-        imageUrl.toString(),
-        fit: BoxFit.cover,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) {
-            return child;
-          }
-          return const CircularProgressIndicator();
-        },
-        errorBuilder: (context, error, stackTrace) {
-          return const Text('Error loading image');
-        },
+      return CircleAvatar(
+        radius: 25.0,
+        backgroundColor: Colors.white,
+        backgroundImage: NetworkImage(imageUrl.toString()),
       );
     } else {
       return const SizedBox(); // Placeholder when imageUrl is null or empty
